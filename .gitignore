@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/HighlightUploader/HighlightUploader/bin
+/HighlightUploader/HighlightUploader/obj
+/HighlightUploader/HighlightUploader/App.config
