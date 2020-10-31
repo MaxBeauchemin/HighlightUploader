@@ -9,6 +9,8 @@ namespace HighlightUploader
     {
         static void Main(string[] args)
         {
+            Logger.Log("--- Starting Program ---");
+
             var fileSeekerResponse = FileBrowser.GetLatestFile();
 
             if (!fileSeekerResponse.Success) return;

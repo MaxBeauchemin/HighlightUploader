@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HighlightUploader", "HighlightUploader\HighlightUploader.csproj", "{30BD19D1-1202-4FB3-9170-96EDBA320D40}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30BD19D1-1202-4FB3-9170-96EDBA320D40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30BD19D1-1202-4FB3-9170-96EDBA320D40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30BD19D1-1202-4FB3-9170-96EDBA320D40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30BD19D1-1202-4FB3-9170-96EDBA320D40}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E42B304D-2085-4744-8894-ABA54E21D762}
+	EndGlobalSection
+EndGlobal
