@@ -12,7 +12,7 @@ There are a few steps required to get this working
 
 2. Register a Client app with Imgur for hosting your videos (https://apidocs.imgur.com/?version=latest)
 
-  a. Populate the Client Id and Access Token fields in your app.config, NOTE: the access token will expire after a while, and I haven't written the code to refresh it yet
+  a. Populate the Client Id and Refresh Token fields in your app.config
 
 3. Create a Webhook on the Discord channel you want your videos to output to (will need Admin access on the server)
 
