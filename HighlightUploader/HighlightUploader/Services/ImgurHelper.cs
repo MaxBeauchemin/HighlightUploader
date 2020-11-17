@@ -6,10 +6,11 @@ using System.Configuration;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace HighlightUploader.Services
 {
-    public static class Imgur
+    public static class ImgurHelper
     {
         public static Response<ImgurResponse<ImgurFileResponse>> UploadFile(string filepath, bool waitForProcessing = false)
         {
@@ -101,18 +102,69 @@ namespace HighlightUploader.Services
             return imgurClientId;
         }
 
+        private static string ClientSecret()
+        {
+            var secret = ConfigurationManager.AppSettings["Imgur:ClientSecret"];
+
+            return secret;
+        }
+
+        private static string RefreshToken()
+        {
+            var refreshToken = ConfigurationManager.AppSettings["Imgur:RefreshToken"];
+
+            return refreshToken;
+        }
+
         private static string AccessToken()
         {
-            var imgurAccessToken = ConfigurationManager.AppSettings["Imgur:AccessToken"];
+            var currToken = ConfigurationManager.AppSettings["Imgur:CurrentAccessToken"];
 
-            return imgurAccessToken;
+            if (currToken != null)
+            {
+                var tokenExpiration = DateTime.Parse(ConfigurationManager.AppSettings["Imgur:CurrentAccessTokenExpiration"]);
+
+                if (DateTime.Now < tokenExpiration)
+                {
+                    return currToken;
+                }
+            }
+
+            var newToken = GenerateAccessToken();
+
+            return newToken;
         }
 
         private static string GenerateAccessToken()
         {
-            //TODO!!!!!
+            var tokenUrl = "https://api.imgur.com/oauth2/token";
 
-            return null;
+            var httpClient = new HttpClient();
+
+            var body = new
+            {
+                refresh_token = RefreshToken(),
+                client_id = ClientId(),
+                client_secret = ClientSecret(),
+                grant_type = "refresh_token"
+            };
+
+            var request = new HttpRequestMessage(HttpMethod.Post, new Uri(tokenUrl))
+            {
+                Content = new StringContent(JsonConvert.SerializeObject(body), Encoding.UTF8, "application/json")
+            };
+
+            var httpResponse = httpClient.SendAsync(request).Result;
+
+            if (!httpResponse.IsSuccessStatusCode) throw new ArgumentException(string.Format("Error Generating Access Token: {0}", httpResponse.StatusCode));
+
+            var res = httpResponse.Content.ReadAsStringAsync();
+            var tokenObj = JsonConvert.DeserializeObject<ImgurTokenResponse>(res.Result);
+
+            ConfigurationManager.AppSettings.Set("Imgur:CurrentAccessToken", tokenObj.access_token);
+            ConfigurationManager.AppSettings.Set("Imgur:CurrentAccessTokenExpiration", DateTime.Now.AddSeconds(tokenObj.expires_in).ToString("yyyy-MM-dd hh:mm:ss"));
+
+            return tokenObj.access_token;
         }
     }
 }

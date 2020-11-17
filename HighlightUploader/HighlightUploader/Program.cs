@@ -19,7 +19,9 @@ namespace HighlightUploader
 
             var pathTokens = fileSeekerResponse.Value.Split('\\').ToList();
 
-            if (pathTokens.Count > 2)
+            var parseGame = bool.Parse(ConfigurationManager.AppSettings["ParentDirectoryIsGameName"]);
+
+            if (parseGame && pathTokens.Count > 2)
             {
                 game = pathTokens[pathTokens.Count - 2];
             }
@@ -37,7 +39,7 @@ namespace HighlightUploader
                 uploadFilePath = compressResponse.Value;
             }
 
-            var imgurResponse = Imgur.UploadFile(uploadFilePath, true);
+            var imgurResponse = ImgurHelper.UploadFile(uploadFilePath, true);
 
             if (!imgurResponse.Success) return;
 
