@@ -1,6 +1,9 @@
 ﻿using HighlightUploader.DTOs;
 using HighlightUploader.Services;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 
 namespace HighlightUploader
@@ -56,6 +59,22 @@ namespace HighlightUploader
 
             if (game != null && game != "Desktop")
             {
+                var currDirectory = Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location);
+
+                var aliasFilePath = currDirectory + "\\FolderAliases.json";
+
+                if (File.Exists(aliasFilePath))
+                {
+                    var jsonAliases = File.ReadAllText(aliasFilePath);
+
+                    var aliases = JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonAliases);
+
+                    if (aliases.ContainsKey(game))
+                    {
+                        game = aliases[game];
+                    }
+                }
+
                 gameContent = string.Format("Game:    `{0}`\n", game);
             }
             
