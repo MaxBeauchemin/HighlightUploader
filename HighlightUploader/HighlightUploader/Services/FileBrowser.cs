@@ -23,7 +23,7 @@ namespace HighlightUploader.Services
                 response.Success = false;
                 response.Message = ex.Message;
 
-                Logger.Log(ex.Message, LogArea.FileIO, LogType.Error);
+                Logger.Log(ex.Message, LogArea.FileIO, LogType.Error, ex);
             }
 
             return response;
@@ -47,7 +47,7 @@ namespace HighlightUploader.Services
                 response.Success = false;
                 response.Message = ex.Message;
 
-                Logger.Log(ex.Message, LogArea.FileIO, LogType.Error);
+                Logger.Log(ex.Message, LogArea.FileIO, LogType.Error, ex);
             }
 
             return response;

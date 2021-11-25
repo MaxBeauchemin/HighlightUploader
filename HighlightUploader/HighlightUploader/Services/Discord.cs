@@ -34,7 +34,7 @@ namespace HighlightUploader.Services
                 response.Success = false;
                 response.Message = ex.Message;
 
-                Logger.Log(ex.Message, LogArea.Discord, LogType.Error);
+                Logger.Log(ex.Message, LogArea.Discord, LogType.Error, ex);
             }
 
             return response;

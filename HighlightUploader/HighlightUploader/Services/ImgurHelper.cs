@@ -29,6 +29,7 @@ namespace HighlightUploader.Services
                 var content = new MultipartFormDataContent();
 
                 var streamContent = new StreamContent(File.Open(filepath, FileMode.Open));
+
                 content.Add(streamContent, "video", filepath);
 
                 var request = new HttpRequestMessage(HttpMethod.Post, new Uri(uploadUrl))
@@ -64,7 +65,7 @@ namespace HighlightUploader.Services
                 response.Success = false;
                 response.Message = ex.Message;
 
-                Logger.Log(ex.Message, LogArea.Imgur, LogType.Error);
+                Logger.Log(ex.Message, LogArea.Imgur, LogType.Error, ex);
             }
 
             return response;
