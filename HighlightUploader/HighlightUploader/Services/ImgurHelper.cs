@@ -48,6 +48,8 @@ namespace HighlightUploader.Services
                 var res = httpResponse.Content.ReadAsStringAsync();
                 var obj = JsonConvert.DeserializeObject<ImgurResponse<ImgurFileResponse>>(res.Result);
 
+                Logger.Log("Successfully Uploaded Video", LogArea.Imgur, LogType.Info, obj);
+
                 response.Value = obj;
 
                 if (waitForProcessing)
