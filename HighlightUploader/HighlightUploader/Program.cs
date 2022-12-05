@@ -17,6 +17,8 @@ namespace HighlightUploader
             {
                 Logger.Log("--- Starting Program ---");
 
+                Logger.SetStatus("Running");
+
                 var fileSeekerResponse = FileBrowser.GetLatestFile();
 
                 if (!fileSeekerResponse.Success) return;
@@ -40,19 +42,21 @@ namespace HighlightUploader
                 {
                     var compressResponse = VideoCompressor.Compress(fileSeekerResponse.Value);
 
-                    if (!compressResponse.Success) return;
+                    if (!compressResponse.Success) throw new Exception(compressResponse.Message);
 
                     uploadFilePath = compressResponse.Value;
                 }
 
                 var imgurResponse = ImgurHelper.UploadFile(uploadFilePath, true);
 
-                if (!imgurResponse.Success) return;
+                if (!imgurResponse.Success) throw new Exception(imgurResponse.Message);
 
                 var webhookUrl = ConfigurationManager.AppSettings["Discord:WebhookUrl"];
                 var username = ConfigurationManager.AppSettings["Username"];
 
                 var url = imgurResponse.Value.data.link;
+
+                Logger.SetStatus("Uploaded");
 
                 //Format Discord Message
 
@@ -90,7 +94,9 @@ namespace HighlightUploader
 
                 var discordResponse = Discord.PostMessage(webhookUrl, discordBody);
 
-                if (!discordResponse.Success) return;
+                if (!discordResponse.Success) throw new Exception(discordResponse.Message);
+
+                Logger.SetStatus("Published");
 
                 if (shouldCompress)
                 {
@@ -100,7 +106,12 @@ namespace HighlightUploader
             catch (Exception ex)
             {
                 Logger.Log(ex.Message, Types.LogArea.General, Types.LogType.Error, ex);
+                Logger.SetStatus("Error");
             }
+
+            System.Threading.Thread.Sleep(10000);
+
+            Logger.SetStatus("Ready");
         }
     }
 }

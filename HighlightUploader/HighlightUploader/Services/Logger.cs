@@ -43,5 +43,16 @@ namespace HighlightUploader.Services
 
             File.AppendAllText(fullPath, sb.ToString());
         }
+
+        public static void SetStatus(string message)
+        {
+            var logDirectory = ConfigurationManager.AppSettings["LoggingDirectory"];
+
+            var fileName = "0_Status.txt";
+
+            var fullPath = Path.Combine(logDirectory, fileName);
+
+            File.WriteAllText(fullPath, message);
+        }
     }
 }
