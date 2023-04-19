@@ -47,11 +47,21 @@ namespace HighlightUploader
                     uploadFilePath = compressResponse.Value;
                 }
 
+                var webhookUrl = ConfigurationManager.AppSettings["Discord:WebhookUrl"];
+
+                var discordRes = Discord.PostMessageWithFile(webhookUrl, "", uploadFilePath);
+
+
+
+
+
+
+
                 var imgurResponse = ImgurHelper.UploadFile(uploadFilePath, true);
 
                 if (!imgurResponse.Success) throw new Exception(imgurResponse.Message);
 
-                var webhookUrl = ConfigurationManager.AppSettings["Discord:WebhookUrl"];
+                //var webhookUrl = ConfigurationManager.AppSettings["Discord:WebhookUrl"];
                 var username = ConfigurationManager.AppSettings["Username"];
 
                 var url = imgurResponse.Value.data.link;

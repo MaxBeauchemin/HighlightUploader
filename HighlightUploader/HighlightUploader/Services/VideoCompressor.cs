@@ -24,10 +24,10 @@ namespace HighlightUploader.Services
 
                 var options = new ConversionOptions
                 {
-                    VideoSize = VideoSize.Hd720,
+                    VideoSize = VideoSize.Hd480,
                     VideoAspectRatio = VideoAspectRatio.R16_9,
-                    VideoFps = 30,
-                    VideoBitRate = 18000
+                    VideoFps = 20,
+                    VideoBitRate = 4000
                 };
 
                 using (var engine = new Engine())
