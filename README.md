@@ -20,7 +20,8 @@ Once built, you should find the program (and the `.config` file you'll need to m
 
 - Make sure you have a program that can already record highlights to a specific directory (i.e. GeForce Experience)
   - Find this directory and put it in the app.config `VideoDirectory`
-- Register a Client app with [Imgur](https://apidocs.imgur.com/?version=latest) for hosting your videos
+- Register a Client app with [Imgur]([https://apidocs.imgur.com/?version=latest](https://apidocs.imgur.com/#authorization-and-oauth:~:text=Registration%20Quickstart)) for hosting your videos
+  - Registration gives you a Client ID and Secret, you can use these in Postman to obtain a Refresh Token
   - Populate the Client ID, Client Secret, and Refresh Token fields in your app.config
   - You may need to use Postman or Curl to get a refresh token from your client credentials
 - Create a Webhook on the Discord channel you want your videos to output to (will need Admin access on the server)
