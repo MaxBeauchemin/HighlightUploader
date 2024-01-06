@@ -24,6 +24,7 @@ Once built, you should find the program (and the `.config` file you'll need to m
   - Registration gives you a Client ID and Secret, you can use these in Postman to obtain a Refresh Token
   - Populate the Client ID, Client Secret, and Refresh Token fields in your app.config
   - You may need to use Postman or Curl to get a refresh token from your client credentials
+  - ⚠️ **Warning** - The Imgur API is very sensitive to being called often, and will IP-block you with `HTTP 429 - Too Many Requests` for multiple days at a time if you aren't authenticated properly
 - Create a Webhook on the Discord channel you want your videos to output to (will need Admin access on the server)
   - Populate the Webhook URL in the `.config`
 
